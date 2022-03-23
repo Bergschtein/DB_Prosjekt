@@ -1,4 +1,5 @@
 import sqlite3 as sql
+from datetime import date
 from pprint import pprint
 from tabulate import tabulate #Trenger installering "pip install tabulate", ikke i bruk enda.
 class Bruker:
@@ -71,6 +72,9 @@ def login(epost, passord):
 
 
 def H1(brenneri, kaffenavn, poeng, smaksnotat, bruker):
+    today = date.today()
+    datoto = ("{}.{}.{}".format(today.day,today.month,today.year))
+    
     con = sql.connect("KaffeDB.db")
     cursor = con.cursor()
     cursor.execute("""SELECT fkID
@@ -81,13 +85,9 @@ def H1(brenneri, kaffenavn, poeng, smaksnotat, bruker):
 
     # Må fikse datogreia
     cursor.execute( """ INSERT INTO Innlegg(smaksnotat, poeng, smaksdato, brukerID, fkID)
-                            VALUES (:smaksnotat, :poeng, :smaksdato, :brukerID, :fkID )""", {'smaksnotat':smaksnotat,'poeng':poeng,'smaksdato':"02.02.22",'brukerID':bruker.getId(),'fkID':fkID })
+                            VALUES (:smaksnotat, :poeng, :smaksdato, :brukerID, :fkID )""", {'smaksnotat':smaksnotat,'poeng':poeng,'smaksdato':datoto,'brukerID':bruker.getId(),'fkID':fkID })
     con.commit()
     
-
-    #Må hente ut resten av informasjonen ved hjelp av fkID
-
-    # cursor.execute("""SELECT  """)
     
 
     con.close()
@@ -104,7 +104,11 @@ def H2():
                         """)
 
     result = cursor.fetchall()
-    print(result)
+    
+    for i in range (len(result)):
+        print("{}. Antall unike innlegg: {}, Fullt navn: {} {}".format(i+1,result[i][0],result[i][1],result[i][2]))
+        print(" ")
+   
 
 def H3():
     con = sql.connect("KaffeDB.db")
@@ -115,8 +119,9 @@ def H3():
                         GROUP BY brenneri.navn, fk.navn
                         ORDER BY gjennomsnittscore DESC, kgPris ASC;""")                   
     result = cursor.fetchall()
-    for i in result:
-        print(i)
+    for i in range(len(result)):
+        print(" ")
+        print("{}. Brennerinavn: {}, Kaffenavn: {}, Pris: {}, Gjennomsnittsscore: {}".format(i+1,result[i][0],result[i][1],result[i][2],result[i][3]))
     con.close()
 
 def H4():
@@ -124,14 +129,16 @@ def H4():
     søkeord = søkeord.strip()
     con = sql.connect("KaffeDB.db")
     cursor = con.cursor()
-    #Dette burde være mulig på en eller annen måte. En hardkodet løsning ligger i "brukerhistorier.sql"
     cursor.execute("""SELECT DISTINCT Brenneri.navn, fk.navn 
                         FROM ((Brenneri INNER JOIN FerdigbrenntKaffe AS fk ON Brenneri.brenneriID = fk.brenneriID) 
                                         INNER JOIN Innlegg ON fk.fkID = Innlegg.fkID)
-                        WHERE fk.beskrivelse LIKE "%:søkeord1%" OR Innlegg.smaksnotat LIKE "%:søkeord2%";""", {'søkeord1':søkeord, 'søkeord2':søkeord})           
+                        WHERE fk.beskrivelse LIKE :søkeord1 OR Innlegg.smaksnotat LIKE :søkeord2;""", {'søkeord1':"%"+søkeord+"%", 'søkeord2':"%"+søkeord+"%"})           
     result = cursor.fetchall()
-   
-
+    
+    for i in range (len(result)):
+        print(" ")
+        print("{}. Brenneri: {}, Kaffenavn: {}".format(i+1,result[i][0],result[i][1]))
+        print(" ")
 
 #ToDo: Få inn data så denne kan sjekkes
 def H5():
@@ -145,4 +152,7 @@ def H5():
                         WHERE (gård.land = 'Colombia' OR gård.land = 'Rwanda') AND LOWER(fm.navn) <> 'vasket';
                     """)                   
     result = cursor.fetchall()
-    print(result)
+    for i in range (len(result)):
+        print(" ")
+        print("{}. Brenneri: {}, Kaffenavn: {}".format(i+1,result[i][0],result[i][1]))
+        print(" ")

@@ -1,4 +1,15 @@
 
+drop table if EXISTS Bruker;
+drop table if EXISTS Innlegg;
+drop table if EXISTS Brenneri;
+drop table if EXISTS FerdigbrenntKaffe;
+drop table if EXISTS Parti;
+drop table if EXISTS Bønne;
+drop table if EXISTS Gård;
+drop table if EXISTS Dyrke;
+drop table if EXISTS Innhold;
+drop table if EXISTS Foredlingsmetode;
+
 
 CREATE TABLE Bruker (
                     brukerID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,7 +44,7 @@ CREATE TABLE FerdigbrenntKaffe (
                     brenneriID INTEGER ,
                     navn TEXT, 
                     brenningsdato TEXT, 
-                    brenningsgrad TEXT CHECK(brenningsgrad IN ('lys', 'middels', 'mørk')), 
+                    brenningsgrad TEXT CHECK(brenningsgrad IN ('lys', 'middels', 'mørk','grønn')), 
                     beskrivelse TEXT,
                     kgPris REAL,
                     CONSTRAINT FK_Parti FOREIGN KEY (partiID) 
@@ -101,7 +112,7 @@ CREATE TABLE Innhold (
 
 
 INSERT INTO Bruker 
-                VALUES (1,'maya.papaya534@stud.ntnu.no', 'maya', 'maya', 'papaya'); 
+                VALUES (1,'maya', 'maya', 'maya', 'papaya'); 
 INSERT INTO Bruker 
                 VALUES (2, 'nora.åsen626@outlook.no', 'nora', 'nora', 'åsen'); 
 INSERT INTO Bruker 
@@ -151,7 +162,11 @@ INSERT INTO FerdigbrenntKaffe
 
 INSERT INTO FerdigbrenntKaffe 
                 VALUES (3, 3, 3, 'Vårkaffe 2022', '20.03.2022', 'mørk' , 'En velsmakende og kompleks kaffe for våren', 200) 
-;    
+;  
+
+INSERT INTO FerdigbrenntKaffe 
+                VALUES (4, 4, 1, 'Beaaanz 2022', '20.03.2022', 'grønn' , 'En god bønne til morgenkaffe eller nattkaffen', 200) 
+;  
 
 
 
@@ -181,6 +196,15 @@ INSERT INTO Foredlingsmetode
 INSERT INTO Foredlingsmetode
                 VALUES (2, 'vasket', 'Skiller fruktkjøttet fra bønnen umiddelbart etter innhøsting... ')
 ;
+INSERT INTO Foredlingsmetode
+                VALUES (3, 'ristet', 'Legger bønnene i en brødrister i 2 dager')
+;
+INSERT INTO Foredlingsmetode
+                VALUES (4, 'hellig', 'blir tilbedt en uke og hver bønne koset mye med')
+;
+INSERT INTO Foredlingsmetode
+                VALUES (5, 'LeBron', 'Den aller beste metoden vår. Blir rett og slett helt himmelsk')
+;
 
 
 
@@ -199,6 +223,10 @@ INSERT INTO Parti
                 VALUES (3, 1, 3, '2021', 9)
 ;
 
+INSERT INTO Parti
+                VALUES (4, 6, 5, '2021', 69)
+;
+
 
 
 
@@ -213,6 +241,15 @@ INSERT INTO Gård
 ;
 INSERT INTO Gård
                 VALUES (4, 'Nombre de fem på spansk', 1000, 'Et sted i Rwanda', 'Rwanda')
+;
+INSERT INTO Gård
+                VALUES (5, 'Alicaffe', 1234, 'Wakanda', 'Rwanda')
+;
+INSERT INTO Gård
+                VALUES (6, 'Ekte columbisk bønne', 420, 'Popolopo', 'Colombia')
+;
+INSERT INTO Gård
+                VALUES (7, 'FratteLatte', 2468, 'Odougodo', 'Colombia')
 ;
 
 
