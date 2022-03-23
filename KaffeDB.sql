@@ -44,7 +44,7 @@ CREATE TABLE FerdigbrenntKaffe (
                     brenneriID INTEGER ,
                     navn TEXT, 
                     brenningsdato TEXT, 
-                    brenningsgrad TEXT CHECK(brenningsgrad IN ('lys', 'middels', 'mørk','grønn')), 
+                    brenningsgrad TEXT CHECK(brenningsgrad IN ('lys', 'middels', 'mørk')), 
                     beskrivelse TEXT,
                     kgPris REAL,
                     CONSTRAINT FK_Parti FOREIGN KEY (partiID) 
@@ -165,7 +165,7 @@ INSERT INTO FerdigbrenntKaffe
 ;  
 
 INSERT INTO FerdigbrenntKaffe 
-                VALUES (4, 4, 1, 'Beaaanz 2022', '20.03.2022', 'grønn' , 'En god bønne til morgenkaffe eller nattkaffen', 200) 
+                VALUES (4, 4, 1, 'Beaaanz 2022', '20.03.2022', 'lys' , 'En god bønne til morgenkaffe eller nattkaffen', 200) 
 ;  
 
 
