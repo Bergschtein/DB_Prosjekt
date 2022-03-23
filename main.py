@@ -2,7 +2,6 @@
 import utilities
 from datetime import date
 
-
 def main():
     print("Velkommen til KaffeDB")
     bruker = 0

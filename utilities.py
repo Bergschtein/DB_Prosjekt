@@ -126,7 +126,8 @@ def H4():
     cursor.execute("""SELECT DISTINCT Brenneri.navn, fk.navn 
                         FROM ((Brenneri INNER JOIN FerdigbrenntKaffe AS fk ON Brenneri.brenneriID = fk.brenneriID) 
                                         INNER JOIN Innlegg ON fk.fkID = Innlegg.fkID)
-                        WHERE fk.beskrivelse LIKE :søkeord1 OR Innlegg.smaksnotat LIKE :søkeord2;""", {'søkeord1':"%"+søkeord+"%", 'søkeord2':"%"+søkeord+"%"})           
+                        WHERE fk.beskrivelse LIKE :søkeord1 OR Innlegg.smaksnotat LIKE :søkeord2;""",
+                        {'søkeord1':"%"+søkeord+"%", 'søkeord2':"%"+søkeord+"%"})           
     result = cursor.fetchall()
     
     for i in range (len(result)):
@@ -134,7 +135,6 @@ def H4():
         print("{}. Brenneri: {}, Kaffenavn: {}".format(i+1,result[i][0],result[i][1]))
         print(" ")
 
-#ToDo: Få inn data så denne kan sjekkes
 def H5():
     con = sql.connect("KaffeDB.db")
     cursor = con.cursor()
