@@ -1,5 +1,6 @@
-import utilities
 
+import utilities
+from datetime import date
 
 # utilities.login('maya.papaya534@stud.ntnu.no', 'maya')
 # utilities.H1("Jacobsen & Svart", "Vinterkaffe 2022", 8, "jojoj")
@@ -7,15 +8,14 @@ import utilities
 
 
 
-#Må fikse at slik at epost og navn ikke er case sensitivt. Nå er det potensielt et slitsomt system
+#M fikse at slik at epost og navn ikke er case sensitivt. Nå er det potensielt et slitsomt system
 #Printe tabellene finere, med tittler og sånn. 
-#Mer data i db.
+#Mer data i db. Flere gårder og kaffer
 
 
 
 def main():
     print("Velkommen til KaffeDB")
-    
     bruker = 0
     while not bruker:
         svar = int(input("Logg inn (1), registrere ny bruker (2) eller avslutt (3)"))
