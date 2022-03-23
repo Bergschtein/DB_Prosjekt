@@ -18,7 +18,7 @@ def main():
     print("Velkommen til KaffeDB")
     bruker = 0
     while not bruker:
-        svar = int(input("Logg inn (1), registrere ny bruker (2) eller avslutt (3)"))
+        svar = int(input("Logg inn (1), registrere ny bruker (2) eller avslutt (3): "))
         if svar == 1:
             epost = input("Epost: ").lower()
             passord = input("Passord: ")
