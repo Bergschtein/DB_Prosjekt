@@ -83,28 +83,22 @@ def H1(brenneri, kaffenavn, poeng, smaksnotat, bruker):
     result = cursor.fetchone()
     fkID = result[0] 
 
-    # Må fikse datogreia
     cursor.execute( """ INSERT INTO Innlegg(smaksnotat, poeng, smaksdato, brukerID, fkID)
-                            VALUES (:smaksnotat, :poeng, :smaksdato, :brukerID, :fkID )""", {'smaksnotat':smaksnotat,'poeng':poeng,'smaksdato':datoto,'brukerID':bruker.getId(),'fkID':fkID })
+                            VALUES (:smaksnotat, :poeng, :smaksdato, :brukerID, :fkID )""",
+                            {'smaksnotat':smaksnotat,'poeng':poeng,'smaksdato':datoto,'brukerID':bruker.getId(),'fkID':fkID })
     con.commit()
-    
-    
-
     con.close()
 
 def H2():
     con = sql.connect("KaffeDB.db")
     cursor = con.cursor()
-    #Fikse oppdaterbart årstall
     cursor.execute("""SELECT COUNT(DISTINCT Innlegg.fkid) AS AntallKaffe, Bruker.fornavn, Bruker.etternavn
                         FROM (Innlegg INNER JOIN Bruker ON Innlegg.brukerID = Bruker.brukerID)
                         WHERE Innlegg.smaksdato LIKE '%.2022'
                         GROUP BY Innlegg.brukerID 
                         ORDER BY AntallKaffe DESC;
                         """)
-
-    result = cursor.fetchall()
-    
+    result = cursor.fetchall() 
     for i in range (len(result)):
         print("{}. Antall unike innlegg: {}, Fullt navn: {} {}".format(i+1,result[i][0],result[i][1],result[i][2]))
         print(" ")
