@@ -34,9 +34,9 @@ class Bruker:
     
 def meny():
     print("(1) Legg til kaffesmaking (H1)")
-    print("(2) Toppliste, antall smakte kaffe(H2)")
-    print("(3) Bang 4 your buck")
-    print("(4) Søk etter kaffe basert på beskrivelse")
+    print("(2) Toppliste, antall smakte kaffe (H2)")
+    print("(3) Bang 4 your buck (H3)")
+    print("(4) Søk etter kaffe basert på beskrivelse (H4)")
     print("(5) Søk etter kaffe basert på land og foredlingsmetode (H5)")
     print("(6) Avslutt")
     
