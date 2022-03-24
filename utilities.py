@@ -92,12 +92,16 @@ def H1(brenneri, kaffenavn, poeng, smaksnotat, bruker):
 def H2():
     con = sql.connect("KaffeDB.db")
     cursor = con.cursor()
+    today_år = date.today()
+    år = ("{}".format(today_år.year))
+
     cursor.execute("""SELECT COUNT(DISTINCT Innlegg.fkid) AS AntallKaffe, Bruker.fornavn, Bruker.etternavn
                         FROM (Innlegg INNER JOIN Bruker ON Innlegg.brukerID = Bruker.brukerID)
-                        WHERE Innlegg.smaksdato LIKE '%.2022'
+                        WHERE Innlegg.smaksdato LIKE :årstall
                         GROUP BY Innlegg.brukerID 
                         ORDER BY AntallKaffe DESC;
-                        """)
+                        """, 
+                        {'årstall':"%" + år + "%"})
     result = cursor.fetchall() 
     for i in range (len(result)):
         print("{}. Antall unike innlegg: {}, Fullt navn: {} {}".format(i+1,result[i][0],result[i][1],result[i][2]))
