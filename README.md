@@ -1,4 +1,3 @@
 # DB_Prosjekt
 
-
-Alle hjelpefunksjoner ligger i fila utilities.py. Selve applikasjonen kjøres fra main.py.
+Small database project in the course "Data modeling and Database systems"
